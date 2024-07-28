@@ -1,7 +1,7 @@
 import axios from 'axios';
 import moment from 'moment/moment';
 import { useState, useEffect } from 'react';
-import  evening from './assets/icons/evening-prayer.gif';
+import evening from './assets/icons/evening-prayer.gif';
 import kaaba from './assets/icons/kaaba.gif';
 import morning from './assets/icons/morning-prayer.gif';
 import mosque from './assets/icons/mosque.gif';
@@ -101,7 +101,7 @@ export default function MainTimes() {
             setRemainTime(Isha2FajrH + " ساعة و " + Isha2FajrM + " دقيقة");
             setNextPrayer("الفجر")
         }
-        }
+    }
     // Get Timimngs
     const getTimings = async () => {
         const res = await axios.get(
@@ -120,27 +120,25 @@ export default function MainTimes() {
             <div className="grid grid-cols-2 gap-4 m-2">
                 <div className=" text-center">
                     <p className='font-bold'>{city.name || "القاهرة"}</p>
-                    <p>التاريخ الهجري: {JSON.stringify(date)} </p>
-                    {/* <p>التاريخ الميلادي: {"\""+dateNow+"\""} </p> */}
-                    {/* <span>الوقت : {timeNow}</span> */}
+                    {/* City Select */}
+                    <div className="flex flex-col p-2">
+                        <label >اختر مدينة
+                            <select className="m-2 w-6/12 p-2 bg-white text-gray-950 font-bold justify-center items-center"
+                                onChange={(e) => {
+                                    const newCity = cities.find((city) => city.apiName === e.target.value)
+                                    setCity(newCity)
+                                }}>
+                                {cityList}
+                            </select>
+                        </label>
+                    </div>
                 </div>
                 <div className="font-bold text-center">
                     <p>الصلاة القادمة :   <span className="text-blue-300"> {nextPrayer}</span></p>
                     <p>بعد :   <span className="text-blue-300"> {remainTime}</span></p>
                 </div>
             </div>
-            {/* City Select */}
-            <div className="flex flex-col p-2">
-                <label >اختر مدينة
-                    <select className="m-2 w-6/12 p-2 bg-white text-gray-950 font-bold justify-center items-center"
-                        onChange={(e) => {
-                            const newCity = cities.find((city) => city.apiName === e.target.value)
-                            setCity(newCity)
-                        }}>
-                        {cityList}
-                    </select>
-                </label>
-            </div>
+
             <hr></hr>
             <p className="font-bold p-2 text-cyan-200">مواقيت الصلاة : </p>
             {/* Fajr */}
